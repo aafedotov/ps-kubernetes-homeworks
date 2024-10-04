@@ -1,0 +1,32 @@
+user:
+  isAdmin: true
+  name: Vasya
+  age: 30
+  jobTitle: Engineer
+  skills:
+    - name: ITSM
+      level: 3
+      desc: |
+        IT Service Management
+        Skills for management IT
+        services
+    - name: sql
+      level: 5
+      desc: |
+        Some SELECT
+        JOIN and other things
+  placeOfResidence: 
+    country: Russia
+    city: Moscow
+    street: Arbat
+    houseNumber: 1
+    apartmentNumber: 10
+  pets:
+    - type: cat
+      name: Barsik
+      breed: Scotland
+      isMeuw: true
+    - type: dog
+      name: Zhuchka
+      breed: Borzaya
+      isMeuw: false
