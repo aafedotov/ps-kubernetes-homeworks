@@ -9,11 +9,61 @@ app:
     limits:
       memory: "1024Mi"
       cpu: "500m"
-    env:
+  env:
     - name: VITE_DOMAIN
-      valueFrom:
-        configMapKeyRef:
-          name: conv-app-config
-          key: VITE_DOMAIN
+
   appConfig:
     VITE_DOMAIN: conv.test
+
+api:
+  name: conv-api
+  components: backend
+  image: aantonlarichev/conv-api
+  tag: "1.0"
+  replicaCount: 1
+  port: 3000
+  limits:
+    memory: "512Mi"
+    cpu: "200m"
+  pvc:
+    requests:
+      storage: 1Gi
+  envs:
+    - AMQP_USER
+    - AMQP_PASSWORD
+    - AMQP_HOSTNAME
+    - AMQP_EXCHANGE
+
+rmq:
+  name: rabbitmq
+  components: rmq
+  image: rabbitmq
+  tag: "3.13"
+  replicaCount: 1
+  port: 5672
+  pvc:
+    requests:
+      storage: 1Gi
+  limits:
+    memory: "1024Mi"
+    cpu: "300m"
+  envs:
+    - SEED_USERNAME
+    - SEED_USER_PASSWORD
+
+conv:
+  name: conv-service
+  components: converter
+  image: antonlarichev/conv-service
+  tag: "1.0"
+  port: 3000
+  replicaCount: 5
+  limits:
+    memory: "512Mi"
+    cpu: "100m"
+  envs:
+    - AMQP_USER
+    - AMQP_PASSWORD
+    - AMQP_EXCHANGE
+    - AMQP_HOSTNAME
+    - AMQP_QUEUE

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.rmq.name }}-pvc
+spec:
+  resources: {{ .Values.rmq.pvc | toYaml | nindent 4 }}
+  accessModes:
+    - ReadWriteOnce

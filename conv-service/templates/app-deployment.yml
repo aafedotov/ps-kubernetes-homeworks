@@ -20,4 +20,8 @@ spec:
           resources:
             {{ .Values.app.resources | toYaml | nindent 12 }}
           env:
-            {{ .Values.app.env | toYaml | nindent 12 }}
+            - name: {{ .Values.app.env.name }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.app.name }}-config
+                  key: {{ .Values.app.env.name }}

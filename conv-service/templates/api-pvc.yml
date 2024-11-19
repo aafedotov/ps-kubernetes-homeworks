@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.api.name }}-pvc
+spec:
+  resources: {{ .Values.api.pvc | toYaml | nindent 4 }}
+  accessModes:
+    - ReadWriteOnce
